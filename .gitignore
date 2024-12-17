@@ -1,0 +1,23 @@
+# Python
+venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Node
+node_modules/
+dist/
+build/
+
+# IDE
+.vscode/
+.idea/
+
+# Others
+*.log
+
+alembic.ini
+alembic/env.py
+alembic/script.py.mako
+alembic/versions/35fb3f7db201_initial_migration.py
