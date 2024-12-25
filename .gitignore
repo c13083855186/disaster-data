@@ -20,4 +20,3 @@ build/
 alembic.ini
 alembic/env.py
 alembic/script.py.mako
-alembic/versions/35fb3f7db201_initial_migration.py
