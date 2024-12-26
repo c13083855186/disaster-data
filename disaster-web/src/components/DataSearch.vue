@@ -23,7 +23,7 @@
             </el-tooltip>
           </template>
         </el-table-column>
-        <el-table-column prop="earthquake_code" label="地震编码" width="200" />
+        <el-table-column prop="region_name" label="地区" width="150" />
         <el-table-column prop="source_code" label="信息来源" width="100">
           <template #default="scope">
             <span>{{ getSourceName(scope.row.source_code) }}</span>
@@ -34,14 +34,18 @@
             <span>{{ getCarrierName(scope.row.carrier_code) }}</span>
           </template>
         </el-table-column>
-        <el-table-column prop="category" label="灾情分类" />
-        <el-table-column prop="subCategory" label="灾情子类" />
-        <el-table-column prop="indicator" label="灾情指标" />
+        <el-table-column prop="category_name" label="灾情分类" width="150" />
+        <el-table-column prop="sub_category_name" label="灾情子类" width="150" />
+        <el-table-column prop="indicator_name" label="灾情指标" width="150" />
+        <el-table-column label="指标值" width="150">
+          <template #default="scope">
+            <span>{{ scope.row.indicator_value || '-' }}</span>
+          </template>
+        </el-table-column>
         <el-table-column prop="created_at" label="创建时间" width="180" />
-        <el-table-column label="操作" width="150" fixed="right">
+        <el-table-column label="操作" width="100" fixed="right">
           <template #default="scope">
             <el-button type="text" size="small" @click="handleDownload(scope.row)">下载</el-button>
-            <el-button type="text" size="small" @click="handlePreview(scope.row)">预览</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -83,6 +87,7 @@ export default {
         category: '',
         subCategory: '',
         indicator: '',
+        indicatorValue: '',
         startTime: '',
         endTime: ''
       }
@@ -109,7 +114,8 @@ export default {
           region: getSelectedRegion(),
           category: data.category?.value || '',
           subCategory: data.subCategory?.value || '',
-          indicator: data.indicator?.value || ''
+          indicator: data.indicator?.value || '',
+          indicatorValue: data.indicatorValue || ''
         }
 
         console.log('数据查询 - 更新后的搜索参数:', this.searchParams)
@@ -161,6 +167,7 @@ export default {
         category: '',
         subCategory: '',
         indicator: '',
+        indicatorValue: '',
         startTime: '',
         endTime: ''
       }
@@ -212,19 +219,6 @@ export default {
       } catch (error) {
         console.error('数据查询 - 下载文件失败:', error)
         this.$message.error('下载失败：' + (error.response?.data?.message || error.message))
-      }
-    },
-
-    // 处理文件预览
-    async handlePreview(row) {
-      console.log('数据查询 - 预览文件:', row)
-      try {
-        const response = await axios.get(`/api/data/preview/${row.integrated_code}`)
-        console.log('数据查询 - 预览数据:', response.data)
-        // 这里可以添加预览逻辑，比如打开一个对话框显示数据
-      } catch (error) {
-        console.error('数据查询 - 预览文件失败:', error)
-        this.$message.error('预览失败：' + (error.response?.data?.message || error.message))
       }
     },
 

@@ -57,7 +57,8 @@ export default {
         data_type: '',
         category: '',
         subCategory: '',
-        indicator: ''
+        indicator: '',
+        indicator_value: ''  // 添加指标值字段
       }
     }
   },
@@ -181,11 +182,12 @@ export default {
       this.uploadData = {
         ...this.uploadData,
         integrated_code: generateIntegratedCode(),
-        earthquake_code: generateEarthquakeCode(),  // 使用相同的生成逻辑
-        disaster_code: generateDisasterCode() || '4',  // 灾情分类代码，默认为4
+        earthquake_code: generateEarthquakeCode(),
+        disaster_code: generateDisasterCode() || '4',
         category: data.category?.value || '',
         subCategory: data.subCategory?.value || '',
-        indicator: data.indicator?.value || ''
+        indicator: data.indicator?.value || '',
+        indicator_value: data.indicatorValue || ''  // 添加指标值
       }
 
       // 构建要存储的数据结构
